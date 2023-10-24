@@ -1,4 +1,6 @@
 from pico2d import *
+import world
+
 
 def handle_events():
     global running
@@ -10,21 +12,23 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         else:
-            #game_world.handle_event(event)
+            world.handle_event(event)
             pass
 
+
 def update_world():
-    #game_world.update()
+    world.update()
     pass
 
 
 def render_world():
     clear_canvas()
-    #game_world.render()
+    world.render()
     update_canvas()
 
+
 open_canvas()
-#create_world()
+world.create_world()
 running = True
 while running:
     handle_events()
