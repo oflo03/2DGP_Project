@@ -1,8 +1,14 @@
 world = [[], [], [], []]
+
+
 # 0: background
 # 1: hold
 # 2: player
 # 3: UI
+
+def create_world():
+    pass
+
 
 def add_object(o, depth=0):
     if depth < len(world):
@@ -10,15 +16,23 @@ def add_object(o, depth=0):
         return
     raise ValueError('the depth request is out of layer index')
 
+
 def update():
     for layer in world:
         for o in layer:
             o.update()
 
+
 def render():
     for layer in world:
         for o in layer:
             o.draw()
+
+
+def handle_event(e):
+    for layer in world:
+        for o in layer:
+            o.handle_event(e)
 
 
 # 객체 삭제
