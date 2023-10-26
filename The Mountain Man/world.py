@@ -6,9 +6,6 @@ world = [[], [], [], []]
 # 2: player
 # 3: UI
 
-def create_world():
-    pass
-
 
 def add_object(o, depth=0):
     if depth < len(world):
@@ -23,16 +20,10 @@ def update():
             o.update()
 
 
-def render():
+def draw():
     for layer in world:
         for o in layer:
             o.draw()
-
-
-def handle_event(e):
-    for layer in world:
-        for o in layer:
-            o.handle_event(e)
 
 
 # 객체 삭제
