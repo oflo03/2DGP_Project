@@ -1,6 +1,6 @@
 from pico2d import *
 import game_framework
-import play_state
+import menu_state
 
 title = None
 
@@ -31,7 +31,7 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_SPACE:
-                game_framework.change_state(play_state)
+                game_framework.change_state(menu_state)
 
 
 def update():
