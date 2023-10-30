@@ -2,10 +2,12 @@ from pico2d import *
 import game_framework
 import world
 from back_image import BackImage
+from hold import Hold
 
 
 def enter():
     BackImage('grass.png')
+    Hold(0, (700, 700))
 
 
 def exit():
