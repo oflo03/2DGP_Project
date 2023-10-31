@@ -7,7 +7,8 @@ from hold import Hold
 
 def enter():
     BackImage('grass.png')
-    Hold(0, (700, 700))
+    for i in range(0, 10):
+        Hold(0, (500 + i * 50, 500 + i * 50))
 
 
 def exit():
