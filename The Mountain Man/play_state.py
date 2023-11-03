@@ -2,13 +2,12 @@ from pico2d import *
 import game_framework
 import world
 from back_image import BackImage
-from hold import Hold
+from problem import Problem
 
 
 def enter():
-    BackImage('grass.png')
-    for i in range(0, 10):
-        Hold(0, (500 + i * 50, 500 + i * 50))
+    BackImage('background.png')
+    #Problem('test.pr')
 
 
 def exit():
