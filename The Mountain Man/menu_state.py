@@ -7,7 +7,7 @@ menu = None
 
 def enter():
     global menu
-    menu = load_image('menu.png')
+    menu = load_image('resources/menu.png')
 
 
 def exit():

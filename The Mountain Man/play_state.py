@@ -6,8 +6,8 @@ from problem import Problem
 
 
 def enter():
-    BackImage('background.png')
-    #Problem('test.pr')
+    BackImage('resources/background.png')
+    Problem('problems/test.pr')
 
 
 def exit():
