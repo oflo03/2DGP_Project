@@ -3,11 +3,13 @@ import game_framework
 import play_state
 
 menu = None
+font_test = None
 
 
 def enter():
-    global menu
+    global menu, font_test
     menu = load_image('resources/menu.png')
+    font_test = load_font('romulus.ttf',50)
 
 
 def exit():
@@ -23,6 +25,7 @@ def resume():
 
 
 def handle_events():
+    global font_test
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -32,6 +35,8 @@ def handle_events():
                 game_framework.quit()
             elif event.key == SDLK_SPACE:
                 game_framework.change_state(play_state)
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            print(str(event.x) + ', ' + str(event.y))
 
 
 def update():
@@ -40,6 +45,8 @@ def update():
 
 def draw():
     global menu
+    global font_test
     clear_canvas()
     menu.draw(game_framework.WIDTH // 2, game_framework.HEIGHT // 2)
+    font_test.draw(100, 100, 'test')
     update_canvas()
