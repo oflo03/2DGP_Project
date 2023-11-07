@@ -9,7 +9,7 @@ font_test = None
 def enter():
     global menu, font_test
     menu = load_image('resources/menu.png')
-    font_test = load_font('romulus.ttf',50)
+    font_test = load_font('NanumGaRamYeonGgoc.ttf', 50)
 
 
 def exit():
