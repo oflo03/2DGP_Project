@@ -21,5 +21,4 @@ class Button:
     def draw(self):
         Button.font.draw(game_framework.WIDTH // 2 - len(self.name) * 20, self.h, self.name,
                          (0, 0, 0) if self.click() else (100, 100, 100))
-        draw_rectangle(game_framework.WIDTH // 2 - len(self.name) * 20, self.h - 35,
-                       game_framework.WIDTH // 2 + len(self.name) * 20, self.h + 35)
+        # draw_rectangle(game_framework.WIDTH // 2 - len(self.name) * 20, self.h - 35, game_framework.WIDTH // 2 + len(self.name) * 20, self.h + 35)
