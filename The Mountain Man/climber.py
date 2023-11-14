@@ -9,7 +9,7 @@ class Climber:
         self.limbs = load_image('resources/limbs.png')
         self.pos = [pos[0], pos[1]]
         self.click_points = [[-70, 20], [70, 20], [-30, -170], [30, -170]]
-        self.locked_points = []
+        self.locked_index = []
         self.selected_index = -1
         self.dir = [0, 0]
         self.limbs_radian = [0.0, 0.0, 0.0, 0.0]
@@ -17,9 +17,9 @@ class Climber:
         world.add_object(self, 2)
 
     def update(self):
-        if len(self.locked_points):
+        if len(self.locked_index):
             pass
-        if self.selected_index == -1 and 0 == len(self.locked_points):
+        if self.selected_index == -1 and 0 == len(self.locked_index):
             self.dir[1] += -0.01
             if self.pos[1] <= 100:
                 if self.dir[1] < -0.1:
@@ -57,13 +57,14 @@ class Climber:
                     self.selected_index = self.click_points.index(cp)
                     self.click_points[self.selected_index] = [e.x - self.pos[0],
                                                               (game_framework.HEIGHT - e.y) - self.pos[1]]
-                    self.locked_points.clear()
+                    if self.selected_index in self.locked_index:
+                        self.locked_index.remove(self.selected_index)
         elif e.type == SDL_MOUSEBUTTONUP:
             if self.selected_index >= 0:
                 for hold in world.world[1]:
                     if abs(self.pos[0] + self.click_points[self.selected_index][0] - hold.pos[0]) < 20 and abs(
                             self.pos[1] + self.click_points[self.selected_index][1] - hold.pos[1]) < 20:
-                        self.locked_points.append(self.click_points[self.selected_index])
+                        self.locked_index.append(self.selected_index)
                         self.pos = [hold.pos[0] - self.click_points[self.selected_index][0],
                                     hold.pos[1] - self.click_points[self.selected_index][1]]
                 self.selected_index = -1
