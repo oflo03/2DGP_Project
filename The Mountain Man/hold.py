@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 
 import game_framework
 import world
@@ -20,3 +20,4 @@ class Hold:
 
     def draw(self):
         hold_image[self.num].draw(self.pos[0], self.pos[1])
+        draw_rectangle(self.pos[0] - 20, self.pos[1] - 20, self.pos[0] + 20, self.pos[1] + 20)
