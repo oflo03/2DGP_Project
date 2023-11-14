@@ -36,7 +36,8 @@ class Climber:
                     self.click_points[i][1] - self.limbs_preset[i][1]) ** 2)
             if magnitude_product == 0:
                 break
-            self.limbs_radian[i] = math.acos(dot_product / magnitude_product) * (1 if (self.click_points[i][0] - self.limbs_preset[i][0]) >= 0 else -1)
+            self.limbs_radian[i] = math.acos(dot_product / magnitude_product) * (
+                1 if (self.click_points[i][0] - self.limbs_preset[i][0]) >= 0 else -1)
 
     def draw(self):
         for i in range(0, 4):
@@ -71,6 +72,12 @@ class Climber:
             if self.selected_index >= 0:
                 self.click_points[self.selected_index] = [e.x - self.pos[0],
                                                           (game_framework.HEIGHT - e.y) - self.pos[1]]
-                if math.sqrt((e.x - self.limbs_preset[self.selected_index][0]) ** 2 + (
-                        (game_framework.HEIGHT - e.y) - self.limbs_preset[self.selected_index][1]) ** 2) > 60:
-                    pass
+                dis = math.sqrt(
+                    (self.click_points[self.selected_index][0] - self.limbs_preset[self.selected_index][0]) ** 2 + (
+                            self.click_points[self.selected_index][1] - self.limbs_preset[self.selected_index][1]) ** 2)
+                if dis >= 60:
+                    self.pos = [e.x - (self.click_points[self.selected_index][0] -
+                                 self.limbs_preset[self.selected_index][0]) / dis * 60 -
+                                self.limbs_preset[self.selected_index][0], (game_framework.HEIGHT - e.y) - (self.click_points[
+                        self.selected_index][1] - self.limbs_preset[self.selected_index][1]) / dis * 60 -
+                                                                            self.limbs_preset[self.selected_index][1]]
