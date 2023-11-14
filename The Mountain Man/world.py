@@ -3,7 +3,7 @@ world = [[], [], [], []]
 
 # 0: background
 # 1: hold
-# 2: player
+# 2: climber
 # 3: UI
 
 
@@ -33,3 +33,8 @@ def remove_object(o):
             layer.remove(o)
             return
     raise ValueError('object is not in world')
+
+
+def clear():
+    for layer in world:
+        layer.clear()

@@ -4,15 +4,22 @@ import cursor
 import game_framework
 import world
 from back_image import BackImage
+from climber import Climber
 from problem import Problem
+
+climber = None
 
 
 def enter():
+    global climber
     BackImage('resources/background.png')
     Problem('problems/test.pr')
+    climber = Climber()
 
 
 def exit():
+    global climber
+    world.clear()
     pass
 
 
@@ -34,6 +41,7 @@ def handle_events():
                 game_framework.pop_state()
         elif event.type == SDL_MOUSEMOTION:
             cursor.x, cursor.y = event.x, game_framework.HEIGHT - event.y
+        climber.handle_events(event)
 
 
 def update():
