@@ -9,13 +9,17 @@ class Climber:
         self.limbs = load_image('resources/limbs.png')
         self.pos = [pos[0], pos[1]]
         self.click_points = [(-40, 90), (40, 90)]
-        self.locked_points = [None, None]
+        self.locked_points = []
         self.selected_point = None
         self.dir = [0, 0]
+        self.radian = 0
+        self.rad_dir = 0
         world.add_object(self, 2)
 
     def update(self):
-        if not self.selected_point:
+        if len(self.locked_points):
+            self.locked_points[0][0]
+        if not self.selected_point and 0 == len(self.locked_points):
             self.dir[1] += -0.01
             if self.pos[1] <= 100:
                 if self.dir[1] < -0.1:
@@ -26,11 +30,12 @@ class Climber:
                 self.dir[1] = 1
             for i in [0, 1]:
                 self.pos[i] += self.dir[i]
+        self.radian += self.rad_dir
 
     def draw(self):
-        self.limbs.composite_draw(-0.3, '', self.pos[0] - 60, self.pos[1] + 70)
-        self.limbs.composite_draw(0.3, '', self.pos[0] + 60, self.pos[1] + 70)
-        self.body.draw(self.pos[0], self.pos[1])
+        # self.limbs.composite_draw(-0.3, '', self.pos[0] - 60, self.pos[1] + 70)
+        # self.limbs.composite_draw(0.3, '', self.pos[0] + 60, self.pos[1] + 70)
+        self.body.composite_draw(self.radian, '', self.pos[0], self.pos[1])
         for cp in self.click_points:
             draw_rectangle(self.pos[0] + cp[0] - 20, self.pos[1] + cp[1] - 20, self.pos[0] + cp[0] + 20,
                            self.pos[1] + cp[1] + 20)
@@ -41,9 +46,17 @@ class Climber:
                 if abs(self.pos[0] + cp[0] - e.x) < 20 and abs(
                         self.pos[1] + cp[1] - (game_framework.HEIGHT - e.y)) < 20:
                     self.selected_point = cp
+                    self.pos = [e.x - self.selected_point[0], (game_framework.HEIGHT - e.y) - self.selected_point[1]]
+                    self.locked_points.clear()
         elif e.type == SDL_MOUSEBUTTONUP:
-            self.selected_point = None
-            self.dir = [0, 0]
+            if self.selected_point:
+                for hold in world.world[1]:
+                    if abs(self.pos[0] + self.selected_point[0] - hold.pos[0]) < 20 and abs(
+                            self.pos[1] + self.selected_point[1] - hold.pos[1]) < 20:
+                        self.locked_points.append(self.selected_point)
+                        self.pos = [hold.pos[0] - self.selected_point[0], hold.pos[1] - self.selected_point[1]]
+                self.selected_point = None
+                self.dir = [0, 0]
         elif e.type == SDL_MOUSEMOTION:
             if self.selected_point:
                 self.pos = [e.x - self.selected_point[0], (game_framework.HEIGHT - e.y) - self.selected_point[1]]
