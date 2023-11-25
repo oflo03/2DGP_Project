@@ -1,23 +1,31 @@
 from pico2d import *
 
+import create_state
 import cursor
+import customize_state
 import game_framework
+import option_state
 import play_state
 
 from button import Button
 
 menu = None
 buttons = []
+bgm = None
 
 
 def enter():
-    global menu, buttons
+    global menu, buttons, bgm
     menu = load_image('resources/menu.png')
     buttons.append(Button('PLAY', 630))
     buttons.append(Button('MAKE', 530))
     buttons.append(Button('CUSTOMIZE', 430))
     buttons.append(Button('OPTION', 330))
     buttons.append(Button('EXIT', 230))
+    if bgm == None:
+        bgm = load_music('resources/bgm1.mp3')
+        bgm.set_volume(option_state.volume)
+        bgm.repeat_play()
 
 
 def exit():
@@ -33,7 +41,7 @@ def resume():
 
 
 def handle_events():
-    global font_test
+    global font_test, bgm
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -49,14 +57,15 @@ def handle_events():
                     if bt.click():
                         match bt.name:
                             case 'PLAY':
+                                play_state.p_num = 0
+                                bgm.stop()
                                 game_framework.push_state(play_state)
-                                pass
                             case 'MAKE':
-                                pass
+                                game_framework.push_state(create_state)
                             case 'CUSTOMIZE':
-                                pass
+                                game_framework.push_state(customize_state)
                             case 'OPTION':
-                                pass
+                                game_framework.push_state(option_state)
                             case 'EXIT':
                                 game_framework.quit()
                                 pass
