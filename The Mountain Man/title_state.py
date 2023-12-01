@@ -37,6 +37,8 @@ def handle_events():
                 game_framework.change_state(menu_state)
         elif event.type == SDL_MOUSEMOTION:
             cursor.x, cursor.y = event.x, game_framework.HEIGHT - event.y
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            game_framework.change_state(menu_state)
 
 
 def update():
